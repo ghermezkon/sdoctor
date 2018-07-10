@@ -1,0 +1,28 @@
+{
+  "name": "zaraban",
+  "version": "1.0.0",
+  "private": true,
+  "description": "zaraban",
+  "scripts": {
+    "serve": "node dist/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.1",
+    "nodemon": "^1.17.5",
+    "npm-check-updates": "^2.14.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.2",
+    "ts-node": "^7.0.0"
+  },
+  "repository": {}
+}
