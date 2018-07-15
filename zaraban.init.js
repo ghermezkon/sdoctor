@@ -20,10 +20,24 @@ router
             }
         });
     })
+    .put('/ostan', (req, res) => {
+        let _id = req.body._id;
+        delete req.body._id;
+        req.app.db.collection(tableDB).update({ _id: _objectId(_id) }, req.body, (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+                res.end();
+            }
+        });
+    })
 //---------------------------------------
 router
-    .get('/city', (req, res) => {
-        req.app.db.collection(tableDB).find({ ostan_code: { $exists: false } }).toArray((err, data) => {
+    .get('/city_of_ostan/:ostan_name', (req, res) => {
+        req.app.db.collection(tableDB).find({
+            $and: [{ 'ostan.ostan_name': req.params.ostan_name }, { 'city_code': { $exists: true } }]
+        }).toArray((err, data) => {
             res.json(data);
         })
     })
@@ -33,6 +47,18 @@ router
                 res.send(err);
             } else {
                 res.send(data);
+                res.end();
+            }
+        });
+    })
+    .put('/city', (req, res) => {
+        let _id = req.body._id;
+        delete req.body._id;
+        req.app.db.collection(tableDB).update({ _id: _objectId(_id) }, req.body, (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
                 res.end();
             }
         });
