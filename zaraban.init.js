@@ -33,6 +33,11 @@ router
             res.json(data);
         })
     })
+    .get('/doctor', (req, res) => {
+        req.app.db.collection(tableDB).find({ doctor_code: { $exists: true } }).toArray((err, data) => {
+            res.json(data);
+        })
+    })
     //----------------------------------------------------------------------------
     .get('/city_of_ostan/:ostan_name', (req, res) => {
         req.app.db.collection(tableDB).find({
@@ -54,7 +59,7 @@ router
         }).toArray((err, data) => {
             res.json(data);
         })
-    })    
+    })
     //----------------------------------------------------------------------------
     .get('/captiondoctor', (req, res) => {
         req.app.db.collection(tableDB).find({ cd_code: { $exists: true } }).toArray((err, data) => {
@@ -67,5 +72,12 @@ router
         }).toArray((err, data) => {
             res.json(data);
         })
-    })   
+    })
+    .get('/search_doctor/:doctor_name', (req, res) => {
+        req.app.db.collection(tableDB).find({
+            $and: [{ 'doctor_name': { $regex: req.params.doctor_name } }, { 'doctor_code': { $exists: true } }]
+        }).toArray((err, data) => {
+            res.json(data);
+        })
+    })
 module.exports = router
