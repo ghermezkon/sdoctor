@@ -27,6 +27,29 @@ router
             }
         });
     })
+    .put('/matab', (req, res) => {
+        let _id = req.body._id;
+        delete req.body._id;
+        req.app.db.collection(tableDB).update(
+            { _id: _objectId(_id) },
+            {
+                $set: {
+                    'matab_base.matab_doctor': req.body.matab_base.matab_doctor,
+                    'matab_base.matab_city': req.body.matab_base.matab_city,
+                    'matab_base.matab_tel': req.body.matab_base.matab_tel,
+                    'matab_base.matab_fax': req.body.matab_base.matab_fax,
+                    'matab_base.matab_address': req.body.matab_base.matab_address
+                }
+            }, { upsert: true }, (err, result) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json(result);
+                    res.end();
+                }
+            });
+    })
+    
     //----------------------------------------------------------------------------
     .get('/ostan', (req, res) => {
         req.app.db.collection(tableDB).find({ ostan_code: { $exists: true } }).toArray((err, data) => {
@@ -35,6 +58,23 @@ router
     })
     .get('/doctor', (req, res) => {
         req.app.db.collection(tableDB).find({ doctor_code: { $exists: true } }).toArray((err, data) => {
+            res.json(data);
+        })
+    })
+    .get('/city', (req, res) => {
+        req.app.db.collection(tableDB).find({ city_code: { $exists: true } }).toArray((err, data) => {
+            res.json(data);
+        })
+    })
+    .get('/matab', (req, res) => {
+        req.app.db.collection(tableDB).find({ matab_base: { $exists: true } }).toArray((err, data) => {
+            res.json(data);
+        })
+    })
+    .get('/matab_base', (req, res) => {
+        req.app.db.collection(tableDB).find({ matab_base: { $exists: true } }, {
+            fields: { 'matab_base': 1, '_id': 1 }
+        }).toArray((err, data) => {
             res.json(data);
         })
     })
