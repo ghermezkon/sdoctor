@@ -15,8 +15,8 @@ app.set('port', port);
 const server = http.createServer(app);
 server.listen(port, () => console.log(`API running on localhost:${port}`));
 //------------------------------------------------------------------------------
-//const url = 'mongodb://localhost:27017';
-const url = 'mongodb://172.18.200.11:27017';
+const url = 'mongodb://localhost:27017';
+//const url = 'mongodb://172.18.200.11:27017';
 const dbName = 'doctor';
 //------------------------------------------------------------------------------
 app.use(function (req, res, next) {
